@@ -16,6 +16,33 @@
     vertical-align: middle;
     margin-right: 8px;
 }
+    #message-popup{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10000;
+}
+
+#message-popup .popup-box{
+    width:400px;
+    max-width:90%;
+    background:#151515;
+    border:2px solid red;
+    border-radius:15px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 25px red;
+}
+
+#message-popup button{
+    margin-top:20px;
+}
 
 @keyframes spin {
     100% {
@@ -376,6 +403,20 @@ async function sendToGoogleSheet(uid, gamename, whatsapp, transaction, screensho
 
     return await response.json();
 }
+    function showMessage(title, text){
+
+    document.getElementById("message-title").innerHTML = title;
+    document.getElementById("message-text").innerHTML = text;
+
+    document.getElementById("message-popup").style.display = "flex";
+
+}
+
+function closeMessagePopup(){
+
+    document.getElementById("message-popup").style.display = "none";
+
+}
 async function submitPayment(){
 
     let uid = document.getElementById("uid");
@@ -450,8 +491,11 @@ alert(JSON.stringify(result));
 
     submitButton.disabled = false;
     submitButton.innerHTML = "Submit";
-
-    alert("❌ This Transaction ID has already been used.");
+      
+showMessage(
+    "❌ Registration Failed",
+    "This Transaction ID has already been used. Please check your payment receipt or contact support if you believe this is a mistake."
+);
 
 }
 else if(result.result == "success"){
@@ -476,7 +520,10 @@ else{
     submitButton.disabled = false;
     submitButton.innerHTML = "Submit";
 
-    alert("Unable to save your registration. Please try again.");
+   showMessage(
+    "⚠️ Error",
+    "Unable to save your registration. Please try again in a few moments."
+);
 
 }
 
@@ -487,12 +534,22 @@ else{
     submitButton.disabled = false;
     submitButton.innerHTML = "Submit";
 
-    alert("Image upload failed. Please try again.");
+   showMessage(
+    "📷 Upload Failed",
+    "Your screenshot could not be uploaded. Please check your internet connection and try again."
+);
 
 }
 
 }
 </script>
+    <div id="message-popup" style="display:none;">
+  <div class="popup-box">
+    <h2 id="message-title"></h2>
+    <p id="message-text"></p>
+    <button onclick="closeMessagePopup()">OK</button>
+  </div>
+</div>
 </body>
 
 </html>
