@@ -422,9 +422,9 @@ async function submitPayment(){
     return;
 }
 
+     const submitButton = document.querySelector("#popup-content button");
 try {
 
-    const submitButton = document.querySelector("#popup-content button");
     submitButton.disabled = true;
     submitButton.innerHTML = `
     <span class="spinner"></span>
@@ -443,8 +443,7 @@ try {
 
     submitButton.disabled = false;
     submitButton.innerText = "Submit";
-Logger.log("Checking: " + transaction);
-Logger.log("Sheet value: " + data[i][4]);
+
   if(result.result == "duplicate"){
 
     submitButton.disabled = false;
