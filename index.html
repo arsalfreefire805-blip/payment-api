@@ -444,37 +444,39 @@ try {
     submitButton.disabled = false;
     submitButton.innerText = "Submit";
 
-    if(result.result == "success"){
+  if(result.result == "duplicate"){
 
-        document.getElementById("popup-content").innerHTML = `
-            <h2>✅ Thank You!</h2>
-
-            <p>Your payment has been received for verification.</p>
-
-            <p>Our team will verify your payment as soon as possible.</p>
-
-            <p><strong>After successful verification, you'll receive the WhatsApp group link on the WhatsApp number you provided.</strong></p>
-
-            <br>
-
-            <button onclick="closePopup()">Close</button>
-        `;
-
-    } else {
-
-        alert("Unable to save your registration. Please try again.");
-
-    }
-
-} catch(err) {
-
-    console.error(err);
     submitButton.disabled = false;
-submitButton.innerHTML = "Submit";
-    alert("Image upload failed. Please try again.");
+    submitButton.innerHTML = "Submit";
+
+    alert("❌ This Transaction ID has already been used.");
 
 }
+else if(result.result == "success"){
 
+    document.getElementById("popup-content").innerHTML = `
+        <h2>✅ Thank You!</h2>
+
+        <p>Your payment has been received for verification.</p>
+
+        <p>Our team will verify your payment as soon as possible.</p>
+
+        <p><strong>After successful verification, you'll receive the WhatsApp group link on the WhatsApp number you provided.</strong></p>
+
+        <br>
+
+        <button onclick="closePopup()">Close</button>
+    `;
+
+}
+else{
+
+    submitButton.disabled = false;
+    submitButton.innerHTML = "Submit";
+
+    alert("Unable to save your registration. Please try again.");
+
+}
 }
 </script>
 </body>
