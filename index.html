@@ -316,6 +316,29 @@ function closePopup(){
     document.getElementById("payment-popup").style.display = "none";
 
 }
+    async function uploadToCloudinary(file) {
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("upload_preset", "tournament_uploads");
+
+    const response = await fetch(
+        "https://api.cloudinary.com/v1_1/fyc69dc1/image/upload",
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const data = await response.json();
+
+    if (!data.secure_url) {
+        throw new Error("Upload failed");
+    }
+
+    return data.secure_url;
+}
 async function sendToGoogleSheet(uid, gamename, whatsapp, transaction, screenshotUrl){
 
     const formData = new FormData();
