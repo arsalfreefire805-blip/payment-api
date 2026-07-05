@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <title>⚔️ PRO KIDZ ARENA .PK 🇵🇰</title>
 <style>
+    .spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
 .error{
     border: 2px solid red !important;
     box-shadow: 0 0 10px red;
@@ -409,7 +426,10 @@ try {
 
     const submitButton = document.querySelector("#popup-content button");
     submitButton.disabled = true;
-    submitButton.innerText = "Uploading...";
+    submitButton.innerHTML = `
+    <span class="spinner"></span>
+    Uploading...
+`;
 
     const screenshotUrl = await uploadToCloudinary(screenshot.files[0]);
 
@@ -449,6 +469,8 @@ try {
 } catch(err) {
 
     console.error(err);
+    submitButton.disabled = false;
+submitButton.innerHTML = "Submit";
     alert("Image upload failed. Please try again.");
 
 }
