@@ -477,7 +477,18 @@ else{
     alert("Unable to save your registration. Please try again.");
 
 }
-    
+
+} catch(err) {
+
+    console.error(err);
+
+    submitButton.disabled = false;
+    submitButton.innerHTML = "Submit";
+
+    alert("Image upload failed. Please try again.");
+
+}
+
 }
 </script>
 </body>
